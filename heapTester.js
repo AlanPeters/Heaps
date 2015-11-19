@@ -27,7 +27,7 @@ console.log(myHeap.delete());
 console.log(myHeap);
 console.log(myHeap.delete());
 console.log(myHeap);
-/*
+
 myHeap.insert(4);
 console.log(myHeap);
 myHeap.insert(12);
@@ -37,5 +37,5 @@ console.log(myHeap);
 myHeap.insert(7);
 console.log(myHeap);
 myHeap.insert(50505);
-conisole.log(myHeap);
-*/
+console.log(myHeap);
+

@@ -35,7 +35,7 @@ DynamicHeap.prototype.floatUp = function(path, newNode, currentRoot){
             compareBranch = currentRoot.left;
         }
         else {
-            if(this.floatup(path, newNode, currentRoot.right)) return true;
+            if(this.floatUp(path, newNode, currentRoot.right)) return true;
             compareBranch = currentRoot.right;
         }
     }
@@ -72,7 +72,7 @@ DynamicHeap.prototype.delete = function(){
     var path = this.getPath(this.n);
     var currentParent = this.root;
     var currentNode = this.root;
-    while(path.length > 1){
+    while(path.length > 0){
          var decision = path.pop();
          currentParent = currentNode;
          if(!decision){
