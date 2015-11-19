@@ -18,6 +18,7 @@ DynamicHeap.prototype.insert = function(value){
     this.floatUp(path, newNode, this.root);
 }
 
+//Used by insert
 DynamicHeap.prototype.floatUp = function(path, newNode, currentRoot){
     var decision = path.pop();
     var compareBranch;
@@ -38,13 +39,10 @@ DynamicHeap.prototype.floatUp = function(path, newNode, currentRoot){
             compareBranch = currentRoot.right;
         }
     }
-    console.log(currentRoot.value+":"+compareBranch.value);
     if(!this.comp(currentRoot.value, compareBranch.value)){
-        console.log("Switching:" +newNode.value);
         var temp = compareBranch.value;
         compareBranch.value = currentRoot.value;
         currentRoot.value = temp;
-
         return false;
     }else{
          return true;   //is done floating
@@ -52,8 +50,9 @@ DynamicHeap.prototype.floatUp = function(path, newNode, currentRoot){
 
 }
 
+//currently only used by insert. Returns the path 0 for left, 1 for right in an
+//array for any node given its position
 DynamicHeap.prototype.getPath = function(n){
-    //var n = this.n;
     var path = [];
     while(n>1){
         path.push(n & 1);
@@ -62,5 +61,56 @@ DynamicHeap.prototype.getPath = function(n){
     return path;
 }
 
+DynamicHeap.prototype.delete = function(){
+    if(this.root === undefined) return undefined;
+    var retValue = this.root.value;
+    if(this.n === 1 ){
+         delete this.head;
+         this.n--;
+         return retValue;
+    }
+    var path = this.getPath(this.n);
+    var currentParent = this.root;
+    var currentNode = this.root;
+    while(path.length > 1){
+         var decision = path.pop();
+         currentParent = currentNode;
+         if(!decision){
+             currentNode = currentNode.left;
+         }else{
+             currentNode = currentNode.right;
+         }
+    }
+    this.root.value = currentNode.value;
+    if(currentParent.right === undefined){
+        delete currentParent.left;
+    }else{
+        delete currentParent.right;
+    }
+    this.n--;
+    this.sinkDown(this.root);
+    return retValue;
+}
+
+DynamicHeap.prototype.sinkDown = function(root){
+    if(root.left === undefined){
+        return;
+    }
+    if(!this.comp(root.value, root.left.value)){
+        var temp = root.value;
+        root.value = root.left.value;
+        root.left.value = temp;
+        return this.sinkDown(root.left);
+    }
+    if(root.right === undefined){
+         return;
+    }
+    if(!this.comp(root.value, root.right.value)){
+        var temp = root.value;
+        root.value = root.right.value;
+        root.right.value = temp;
+        return this.sinkDown(root.right);
+    }
+}
 
 module.exports = DynamicHeap;

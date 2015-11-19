@@ -20,14 +20,14 @@ myHeap.insert(.5);
 
 console.log(myHeap);
 
-/*
- * console.log(myHeap.delete());
-console.log(myHeap);
-console.log(myHeap.delete());
-console.log(myHeap);
-console.log(myHeap.delete());
-console.log(myHeap);
 
+console.log(myHeap.delete());
+console.log(myHeap);
+console.log(myHeap.delete());
+console.log(myHeap);
+console.log(myHeap.delete());
+console.log(myHeap);
+/*
 myHeap.insert(4);
 console.log(myHeap);
 myHeap.insert(12);
