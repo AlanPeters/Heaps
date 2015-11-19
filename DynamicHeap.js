@@ -125,7 +125,28 @@ DynamicHeap.prototype.sinkDown = function(root){
 }
 
 DynamicHeap.prototype.toArray = function(){
-
+    var array = [];
+    this.addToArray(this.head, 1, array);
+    return array;
 }
+
+
+DynamicHeap.prototype.addToArray = function(node, position, array){
+    //array[position] = node.value;
+    if(node.balance === 1){ array[position] = "+";}
+    else if(node.balance === -1){ array[position] = "-"; }
+    else { array[position] = node.balance }
+
+    var left = 1;
+    var right = 1;
+    if(node.left !== undefined){
+        left += this.addToArray(node.left,position*2,array);
+    }
+    if(node.right !== undefined){
+        right += this.addToArray(node.right,position*2+1,array);
+    }
+    return left > right ? left : right;
+}
+
 
 module.exports = DynamicHeap;
