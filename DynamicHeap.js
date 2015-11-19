@@ -124,4 +124,8 @@ DynamicHeap.prototype.sinkDown = function(root){
     }
 }
 
+DynamicHeap.prototype.toArray = function(){
+
+}
+
 module.exports = DynamicHeap;
