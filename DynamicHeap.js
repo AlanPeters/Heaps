@@ -124,4 +124,58 @@ DynamicHeap.prototype.sinkDown = function(root){
     }
 }
 
+DynamicHeap.prototype.toArray = function(){
+    var array = [];
+    this.addToArray(this.root, 1, array);
+    return array;
+}
+
+
+DynamicHeap.prototype.addToArray = function(node, position, array){
+    array[position-1] = node.value;
+    //if(node.balance === 1){ array[position] = "+";}
+    //else if(node.balance === -1){ array[position] = "-"; }
+    //else { array[position] = node.balance }
+
+    var left = 1;
+    var right = 1;
+    if(node.left !== undefined){
+        left += this.addToArray(node.left,position*2,array);
+    }
+    if(node.right !== undefined){
+        right += this.addToArray(node.right,position*2+1,array);
+    }
+    return left > right ? left : right;
+}
+
+DynamicHeap.prototype.printTree = function(){
+    var position = 1;
+    var numlayers = 1;
+    var items = [];
+    if(this.root === undefined){
+        return "Empty tree";
+    }
+    var height = this.addToArray(this.root, position, items);
+
+    var layers = [""];
+    for(var i = 0; i < height; i++){
+        var spacing = Math.pow(2,height - i);
+        var offset = Math.pow(2,i);
+        layers[i] = Array(Math.floor(spacing/2)).join(" ");
+        for(var k = offset; k < Math.pow(2,i+1); k++){
+             layers[i] += items[k-1] === undefined ? " ": items[k-1];
+             layers[i] += Array(spacing).join(" ");
+        }
+    }
+
+
+    console.log("------------------------");
+    layers.map(function(value){console.log(value)});
+    console.log("------------------------");
+
+    return layers;
+
+}
+
+
 module.exports = DynamicHeap;

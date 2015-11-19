@@ -20,6 +20,9 @@ myHeap.insert(.5);
 
 console.log(myHeap);
 
+console.log(myHeap.toArray());
+myHeap.printTree();
+
 
 console.log(myHeap.delete());
 console.log(myHeap);
@@ -27,6 +30,9 @@ console.log(myHeap.delete());
 console.log(myHeap);
 console.log(myHeap.delete());
 console.log(myHeap);
+
+console.log(myHeap.toArray());
+
 
 myHeap.insert(4);
 console.log(myHeap);
