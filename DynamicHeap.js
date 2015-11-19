@@ -1,11 +1,19 @@
 //DynamicHeap
+//@Author Alan Peters
+//@Date 11/17/2015
+//Heap implemented in a dynamically linked binary tree
 
+//Constructor. Takes a compare function which will accept 2 variables and return true or false.
+//Returning True will indicate that the first value belongs above the second in the tree.
+//False will indicate the two values should be switched. value a < value b is used if no function is
+//specified.
 function DynamicHeap(compare){
     this.comp = compare || function(a, b){ return a < b };
     this.root = {};
     this.n = 0;
 }
 
+//insert a new value into the heap
 DynamicHeap.prototype.insert = function(value){
     var newNode = {};
     newNode.value = value;
@@ -50,8 +58,8 @@ DynamicHeap.prototype.floatUp = function(path, newNode, currentRoot){
 
 }
 
-//currently only used by insert. Returns the path 0 for left, 1 for right in an
-//array for any node given its position
+//Returns the path 0 for left, 1 for right in an array for any node given its position n.
+//Used by insert to find the next open location and delete to find the last full node.
 DynamicHeap.prototype.getPath = function(n){
     var path = [];
     while(n>1){
@@ -61,6 +69,8 @@ DynamicHeap.prototype.getPath = function(n){
     return path;
 }
 
+//deletes the root node then swaps the last full node into the root position.
+//Returns the deleted value.
 DynamicHeap.prototype.delete = function(){
     if(this.root === undefined) return undefined;
     var retValue = this.root.value;
@@ -92,8 +102,9 @@ DynamicHeap.prototype.delete = function(){
     return retValue;
 }
 
+//used by delete to move the new root into its proper location.
 DynamicHeap.prototype.sinkDown = function(root){
-    if(root.left === undefined){
+    if(root.left === undefined){  // if left is empty right will also be empty.
         return;
     }
     if(!this.comp(root.value, root.left.value)){
